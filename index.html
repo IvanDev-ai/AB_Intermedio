@@ -9,8 +9,9 @@
             try {
                 const response = await fetch('http://localhost:3000/api');
                 const data = await response.json();
-                const title = data.title;
-                const description = data.description;
+                console.log(data);
+                const title = data.finalWord;
+                const description = data.firstDefinition;
 
                 document.getElementById('palabra').textContent = title;
                 document.getElementById('descripcion').textContent = description;
