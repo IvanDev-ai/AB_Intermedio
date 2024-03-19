@@ -4,31 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Palabras Aleatorias</title>
-    <script>
-        async function obtenerPalabraAleatoria() {
-            try {
-                const response = await fetch('http://localhost:3000/api');
-                const data = await response.json();
-                console.log(data);
-                const title = data.finalWord;
-                const description = data.firstDefinition;
-
-                document.getElementById('palabra').textContent = title;
-                document.getElementById('descripcion').textContent = description;
-            } catch (error) {
-                console.error('Error al obtener la palabra aleatoria:', error);
-            }
-        }
-
-        function generarPalabraAleatoria() {
-            obtenerPalabraAleatoria();
-        }
-    </script>
+    <script src="scripts.js"></script>
 </head>
 <body>
     <h1>Generador de Palabras Aleatorias</h1>
-    <button onclick="generarPalabraAleatoria()">Generar Palabra Aleatoria</button>
+    <button id="button1" onclick="generarPalabraAleatoria()">Generar Palabra Aleatoria</button>
+    <button id="button2" onclick="VolverAEscribir()">Volver a intentarlo?</button>
     <h2 id="palabra"></h2>
     <p id="descripcion"></p>
+    <p id="timer"></p>
+    <p id="fallos"></p>
 </body>
 </html>
