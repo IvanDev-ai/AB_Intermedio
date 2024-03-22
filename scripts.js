@@ -1,28 +1,47 @@
-let desc;
 let startTime;
-async function obtenerPalabraAleatoria() {
+
+async function generarPalabraAleatoria() {
     try {
-        const response = await fetch('http://localhost:3000/api');
-        const data = await response.json();
-        console.log(data);
-        const title = data.word;
-        const description = data.def;
-        desc = description;
-        document.getElementById('palabra').textContent = title;
-        document.getElementById('descripcion').textContent = description;
+        const randomWordResponse = await fetch('https://api.api-ninjas.com/v1/randomword', {
+            headers: {
+                'X-Api-Key': 'YEBrft4Rq/1zfW2aa2m6Ug==JP3LfbWMmVVAUe7j'
+            }
+        });
+        
+        if (!randomWordResponse.ok) {
+            throw new Error('Error al obtener la palabra aleatoria');
+        }
+
+        const randomWordData = await randomWordResponse.json();
+        const word = randomWordData.word;
+        
+        const definitionResponse = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+        if (!definitionResponse.ok) {
+            alert('Se produjo un error al obtener la definición de la palabra. Por favor, recargue la página.');
+            throw new Error('Error al obtener la definición de la palabra');
+        }
+        const definitionData = await definitionResponse.json();
+
+        let def = '';
+        if (definitionData[0].meanings && definitionData[0].meanings[0].definitions && definitionData[0].meanings[0].definitions[0]) {
+            def = definitionData[0].meanings[0].definitions[0].definition;
+            console.log(def);
+        } else {
+            console.log('No se encontró una definición para la palabra ingresada.');
+        }
+
+        document.getElementById('palabra').innerText = word;
+        document.getElementById('descripcion').innerText = def;
         const boton1 = document.getElementById('button1');
         boton1.disabled = true;
         const boton2 = document.getElementById('button2');
         boton2.disabled = true;
-        cambiarColorGris(description); // Llama a cambiarColorGris después de que se establezca la descripción
+        cambiarColorGris(def); 
     } catch (error) {
-        console.error('Error al obtener la palabra aleatoria:', error);
+        console.error('Error al generar palabra aleatoria:', error);
     }
 }
 
-function generarPalabraAleatoria() {
-    obtenerPalabraAleatoria();
-}
 
 function VolverAEscribir() {
     const boton1 = document.getElementById('button1');
@@ -85,8 +104,3 @@ function cambiarColorGris(letras) {
     });
 }
 
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Ejecutar lógica de obtenerPalabraAleatoria() cuando se cargue el DOM
-    obtenerPalabraAleatoria();
-});

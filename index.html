@@ -4,16 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Palabras Aleatorias</title>
-    <script src="scripts.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Generador de Palabras Aleatorias</h1>
-    <button id="button1" onclick="generarPalabraAleatoria()">Generar Palabra Aleatoria</button>
-    <button id="button2" onclick="VolverAEscribir()">Volver a intentarlo?</button>
-    <h2 id="palabra"></h2>
-    <p id="descripcion"></p>
-    <p id="timer"></p>
-    <p id="fallos"></p>
-    <script src="proxy.js"></script>
+    <header>
+        <h1>Generador de Palabras Aleatorias</h1>
+    </header>
+
+    <main>
+        <section class="buttons">
+            <button id="button1" onclick="generarPalabraAleatoria()">Generar Palabra Aleatoria</button>
+            <button id="button2" onclick="VolverAEscribir()">Volver a intentarlo</button>
+        </section>
+
+        <section class="word">
+            <h2 id="palabra"></h2>
+            <p id="descripcion"></p>
+        </section>
+
+        <section class="info">
+            <p id="timer"></p>
+            <p id="fallos"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Generador de Palabras Aleatorias</p>
+    </footer>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
