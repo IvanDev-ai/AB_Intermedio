@@ -35,7 +35,6 @@ async function generarPalabraAleatoria() {
         const boton1 = document.getElementById('button1');
         boton1.disabled = true;
         cambiarColorGris(def,word); 
-        word1 = word;
         desc = def; 
     } catch (error) {
         console.error('Error al generar palabra aleatoria:', error);
@@ -66,13 +65,10 @@ function cambiarColorGris(letras,word) {
 
             // Verificar si toda la frase está en gris
             if (fraseRestante.length === 0) {
-                mostrarEstadisticas(fallos, startTime,word,letras);
-
                 // Si la frase está completamente en gris, habilitar los botones
                 const boton1 = document.getElementById('button1');
                 boton1.disabled = false;
-                const boton2 = document.getElementById('button2');
-                boton2.disabled = false;
+                mostrarEstadisticas(fallos, startTime,word,letras);
             }
         } else {
             // Si la tecla ingresada no es correcta, aumentar el contador de fallos
