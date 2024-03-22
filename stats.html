@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas</title>
+    <link rel="stylesheet" href="styles_stats.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1 style="text-align: center;">Estadísticas</h1>
+    </header>
+
+    <main class="container">
+        <section class="stats">
+            <p>Fallos: <span id="fallos"></span> errores.</p>
+            <p>Tiempo transcurrido: <span id="tiempo"></span> segundos.</p>
+            <p>Palabras por minuto: <span id="ppm"></span>palabras.</p>
+        </section>
+
+        <section class="grafica-container">
+            <canvas id="graficoBarras" width="400" height="400"></canvas>
+        </section>
+        
+        <section class="button-come-section">
+            <button id="button2" onclick="VolverAEscribir()" style="text-align: center;">Volver a intentarlo</button>
+        </section>
+        <section class="button-new-section">
+            <button id="button2" onclick="GenerarPalabra()" style="text-align: center;">Generar Nueva Palabra</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Iván Lumbreras Martín - Juan Antonio Diaz - Mario Moreno - Jaime Fernandez de Cañete</p>
+    </footer>
+
+    <script>
+        // Obtener los parámetros de la URL
+        const params = new URLSearchParams(window.location.search);
+        const fallos = params.get('fallos');
+        const tiempo = params.get('tiempo');
+        const word = params.get('word');
+        const def = params.get('def');
+        const intentosString = params.get('intentos');
+        const intentos = JSON.parse(decodeURIComponent(intentosString));
+
+        // Mostrar los datos en la página
+        document.getElementById('fallos').innerText = fallos;
+        document.getElementById('tiempo').innerText = tiempo;
+
+        // Calcular palabras por minuto
+        const palabras = contarPalabras(def);
+        const ppm = calcularPalabrasPorMinuto(palabras, tiempo);
+        document.getElementById('ppm').innerText = ppm;
+
+        // Configurar y mostrar el gráfico de barras
+        const ctx = document.getElementById('graficoBarras').getContext('2d');
+        const graficoBarras = new Chart(ctx, {
+            type: 'bar', // Tipo de gráfico de barras
+            data: {
+                labels: intentos, // Los intentos serán las etiquetas del eje X
+                datasets: [{
+                    label: 'Tiempo transcurrido', // Etiqueta del dataset
+                    data: intentos.map(tiempo => parseFloat(tiempo)), // Los tiempos serán la altura de las barras
+                    backgroundColor: '#b6995e',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false, // Desactiva la responsividad para mantener el tamaño del gráfico
+                scales: {
+                    y: {
+                        beginAtZero: true // Empieza en cero en el eje Y
+                    }
+                }
+            }
+        });
+
+
+        function contarPalabras(texto) {
+            // Eliminar los espacios al principio y al final del texto
+            const textoLimpio = texto.trim();
+            // Dividir el texto en palabras usando los espacios como separadores
+            const palabras = textoLimpio.split(/\s+/);
+            // Devolver el número de palabras
+            return palabras.length;
+        }
+
+        function calcularPalabrasPorMinuto(palabras, tiempo) {
+            // Calcular el tiempo en minutos
+            const tiempoMinutos = parseFloat(tiempo) / 60;
+            // Calcular palabras por minuto
+            const ppm = palabras / tiempoMinutos;
+            // Redondear el resultado a dos decimales
+            return ppm.toFixed(2);
+        }
+
+        function VolverAEscribir() {
+            const intentosString = JSON.stringify(intentos);
+            window.location.href = `index.html?word=${word}&def=${def}&intentos=${intentosString}`;
+        }
+        function GenerarPalabra() {
+            window.location.href = `index.html`;
+        }
+        
+    </script>
+</body>
+</html>

@@ -4,34 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Palabras Aleatorias</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles_idx.css">
 </head>
 <body>
     <header>
-        <h1>Generador de Palabras Aleatorias</h1>
+    <img  src="images/logo.png" alt="" style="height: 100px; width: 200px; position: absolute; top: 10px; left: 0;"/>
+    <h1>GPA - 4 </h1>
     </header>
 
     <main>
         <section class="buttons">
-            <button id="button1" onclick="generarPalabraAleatoria()">Generar Palabra Aleatoria</button>
-            <button id="button2" onclick="VolverAEscribir()">Volver a intentarlo</button>
+            <button id="button1" onclick="generarPalabraAleatoria()">Generar Palabra </button>
         </section>
 
         <section class="word">
+            
             <h2 id="palabra"></h2>
             <p id="descripcion"></p>
-        </section>
-
-        <section class="info">
-            <p id="timer"></p>
-            <p id="fallos"></p>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 Generador de Palabras Aleatorias</p>
+        <p>&copy; 2024 Iván Lumbreras Martín - Juan Antonio Diaz - Mario Moreno - Jaime Fernandez de Cañete</p>
     </footer>
-
     <script src="scripts.js"></script>
+    <script>    
+        // Obtener los parámetros de la URL
+        const params = new URLSearchParams(window.location.search);
+        const palabra = params.get('word');
+        const descripcion = params.get('def');
+
+        // Mostrar los datos en la página
+        if (palabra !== null  && descripcion !== null ) {
+        document.getElementById('palabra').innerText = palabra;
+        document.getElementById('descripcion').innerText = descripcion;
+
+        cambiarColorGris(descripcion, palabra);
+        }
+    </script>
 </body>
 </html>

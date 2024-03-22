@@ -1,5 +1,5 @@
 let startTime;
-
+let desc;
 async function generarPalabraAleatoria() {
     try {
         const randomWordResponse = await fetch('https://api.api-ninjas.com/v1/randomword', {
@@ -34,30 +34,16 @@ async function generarPalabraAleatoria() {
         document.getElementById('descripcion').innerText = def;
         const boton1 = document.getElementById('button1');
         boton1.disabled = true;
-        const boton2 = document.getElementById('button2');
-        boton2.disabled = true;
-        cambiarColorGris(def); 
+        cambiarColorGris(def,word); 
+        word1 = word;
+        desc = def; 
     } catch (error) {
         console.error('Error al generar palabra aleatoria:', error);
     }
 }
 
 
-function VolverAEscribir() {
-    const boton1 = document.getElementById('button1');
-    boton1.disabled = true;
-    const boton2 = document.getElementById('button2');
-    boton2.disabled = true;
-    const descr = document.getElementById('descripcion');
-    descr.innerHTML = descr.textContent; 
-    const timer = document.getElementById('timer');
-    timer.innerHTML = ''; 
-    const fallos = document.getElementById('fallos');
-    fallos.innerHTML = ''; 
-    cambiarColorGris(desc);
-}
-
-function cambiarColorGris(letras) {
+function cambiarColorGris(letras,word) {
     const descripcion = document.getElementById("descripcion");
     const fraseOriginal = letras.trim().toLowerCase();
     let fraseRestante = fraseOriginal;
@@ -80,22 +66,13 @@ function cambiarColorGris(letras) {
 
             // Verificar si toda la frase está en gris
             if (fraseRestante.length === 0) {
+                mostrarEstadisticas(fallos, startTime,word,letras);
+
                 // Si la frase está completamente en gris, habilitar los botones
                 const boton1 = document.getElementById('button1');
                 boton1.disabled = false;
                 const boton2 = document.getElementById('button2');
                 boton2.disabled = false;
-                
-                const endTime = performance.now();
-                const tiempoTranscurrido = endTime - startTime;
-                const tiempoEnSegundos = tiempoTranscurrido / 1000;
-                const tiempoRedondeado = tiempoEnSegundos.toFixed(2);
-                const timer = document.getElementById('timer');
-                timer.innerHTML = `Tiempo transcurrido: ${tiempoRedondeado} seg`;
-
-                // Mostrar el número de fallos
-                const fallosElement = document.getElementById('fallos');
-                fallosElement.innerHTML = `Fallos: ${fallos}`;
             }
         } else {
             // Si la tecla ingresada no es correcta, aumentar el contador de fallos
@@ -104,3 +81,27 @@ function cambiarColorGris(letras) {
     });
 }
 
+
+function mostrarEstadisticas(fallos, startTime,word,def) {
+    // Calcular tiempo transcurrido
+    const endTime = performance.now();
+    const tiempoTranscurrido = endTime - startTime;
+    const tiempoEnSegundos = tiempoTranscurrido / 1000;
+    const tiempoRedondeado = tiempoEnSegundos.toFixed(2);
+
+    const params = new URLSearchParams(window.location.search);
+    let intentos = params.get('intentos')
+    if (intentos !== null) {
+        // Decodificar la cadena JSON y convertirla de nuevo en un array
+        intentos = JSON.parse(decodeURIComponent(intentos));
+    } else {
+        // Si no hay cadena intentos en la URL, inicializar un nuevo array
+        intentos = [];
+    }
+    intentos.push(tiempoRedondeado);
+    const intentosString = JSON.stringify(intentos);
+    
+
+    // Redireccionar a una nueva página con estadísticas
+    window.location.href = `stats.html?fallos=${fallos}&tiempo=${tiempoRedondeado}&word=${word}&def=${def}&intentos=${intentosString}`;
+}
