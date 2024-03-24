@@ -1,109 +1,106 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estadísticas</title>
-    <link rel="stylesheet" href="styles_stats.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Statistics</title> 
+    <link rel="stylesheet" href="styles_stats.css"> <!-- Enlace al css correspondiente -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Enlace al archivo de script de Chart.js (para la gráfica de barras)-->
 </head>
 <body>
     <header>
-        <h1 style="text-align: center;">Estadísticas</h1>
+        <h1 style="text-align: center;">Statistics</h1> <!-- Encabezado principal -->
     </header>
 
     <main class="container">
         <section class="stats">
-            <p>Fallos: <span id="fallos"></span> errores.</p>
-            <p>Tiempo transcurrido: <span id="tiempo"></span> segundos.</p>
-            <p>Palabras por minuto: <span id="ppm"></span> palabras/min.</p>
+            <p>Fallos: <span id="mistakes"></span> errores.</p> <!-- Número de fallos -->
+            <p>Tiempo: <span id="time"></span> segundos.</p> <!-- Tiempo transcurrido -->
+            <p>Palabras por minuto: <span id="wpm"></span> palabras/min.</p> <!-- Palabras por minuto -->
         </section>
 
-        <section class="grafica-container">
-            <canvas id="graficoBarras" width="400" height="400"></canvas>
+        <section class="chart-container">
+            <canvas id="barChart" width="400" height="400"></canvas> <!-- Gráfico de barras -->
         </section>
         
-        <section class="button-come-section">
-            <button id="button2" onclick="VolverAEscribir()" style="text-align: center;">Volver a intentarlo</button>
+        <section class="button-retry-section">
+            <button id="button2" onclick="Retry()" style="text-align: center;">Volver a intentarlo</button> <!-- Botón para volver a intentarlo -->
         </section>
         <section class="button-new-section">
-            <button id="button2" onclick="GenerarPalabra()" style="text-align: center;">Generar Nueva Partida</button>
+            <button id="button2" onclick="GenerateWord()" style="text-align: center;">Generar Nueva Partida</button> <!-- Botón para generar una nueva partida -->
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 Iván Lumbreras Martín - Juan Antonio Diaz - Mario Moreno - Jaime Fernandez de Cañete</p>
+        <p>&copy; 2024 Iván Lumbreras Martín - Juan Antonio Diaz - Mario Moreno - Jaime Fernandez</p>
     </footer>
 
     <script>
-        // Obtener los parámetros de la URL
+        // Obtener parámetros de la URL
         const params = new URLSearchParams(window.location.search);
-        const fallos = params.get('fallos');
-        const tiempo = params.get('tiempo');
-        const word = params.get('word');
-        const def = params.get('def');
-        const intentosString = params.get('intentos');
-        const intentos = JSON.parse(decodeURIComponent(intentosString));
+        const mistakes = params.get('mistakes'); // Número de fallos
+        const time = params.get('time'); // Tiempo transcurrido
+        const word = params.get('word'); // Palabra generada
+        const def = params.get('def'); // Definición de la palabra
+        const attemptsString = params.get('attempts'); // Intentos anteriores
+        const attempts = JSON.parse(decodeURIComponent(attemptsString));
 
-        // Mostrar los datos en la página
-        document.getElementById('fallos').innerText = fallos;
-        document.getElementById('tiempo').innerText = tiempo;
+        // Mostrar datos en la página
+        document.getElementById('mistakes').innerText = mistakes; // Mostrar el número de fallos
+        document.getElementById('time').innerText = time; // Mostrar el tiempo transcurrido
 
         // Calcular palabras por minuto
-        const palabras = contarPalabras(def);
-        const ppm = calcularPalabrasPorMinuto(palabras, tiempo);
-        document.getElementById('ppm').innerText = ppm;
+        const words = countWords(def);
+        const wpm = calculateWordsPerMinute(words, time);
+        document.getElementById('wpm').innerText = wpm; // Mostrar palabras por minuto
 
-        // Configurar y mostrar el gráfico de barras
-        const ctx = document.getElementById('graficoBarras').getContext('2d');
-        const graficoBarras = new Chart(ctx, {
-            type: 'bar', // Tipo de gráfico de barras
+        // Crear gráfico de barras con los intentos anteriores
+        const ctx = document.getElementById('barChart').getContext('2d');
+        const barChart = new Chart(ctx, {
+            type: 'bar',
             data: {
-                labels: intentos, // Los intentos serán las etiquetas del eje X
+                labels: attempts,
                 datasets: [{
-                    label: 'Tiempo transcurrido', // Etiqueta del dataset
-                    data: intentos.map(tiempo => parseFloat(tiempo)), // Los tiempos serán la altura de las barras
+                    label: 'Tiempo',
+                    data: attempts.map(time => parseFloat(time)),
                     backgroundColor: '#b6995e',
                     borderWidth: 1
                 }]
             },
             options: {
-                responsive: false, // Desactiva la responsividad para mantener el tamaño del gráfico
+                responsive: false,
                 scales: {
                     y: {
-                        beginAtZero: true // Empieza en cero en el eje Y
+                        beginAtZero: true
                     }
                 }
             }
         });
 
-
-        function contarPalabras(texto) {
-            // Eliminar los espacios al principio y al final del texto
-            const textoLimpio = texto.trim();
-            // Dividir el texto en palabras usando los espacios como separadores
-            const palabras = textoLimpio.split(/\s+/);
-            // Devolver el número de palabras
-            return palabras.length;
+        // Función para contar palabras en una cadena de texto
+        function countWords(text) {
+            const cleanText = text.trim();
+            const words = cleanText.split(/\s+/);
+            return words.length;
         }
 
-        function calcularPalabrasPorMinuto(palabras, tiempo) {
-            // Calcular el tiempo en minutos
-            const tiempoMinutos = parseFloat(tiempo) / 60;
-            // Calcular palabras por minuto
-            const ppm = palabras / tiempoMinutos;
-            // Redondear el resultado a dos decimales
-            return ppm.toFixed(2);
+        // Función para calcular palabras por minuto
+        function calculateWordsPerMinute(words, time) {
+            const timeMinutes = parseFloat(time) / 60;
+            const wpm = words / timeMinutes;
+            return wpm.toFixed(2);
         }
 
-        function VolverAEscribir() {
-            const intentosString = JSON.stringify(intentos);
-            window.location.href = `index.html?word=${word}&def=${def}&intentos=${intentosString}`;
+        // Función para volver a intentarlo (vuelve al index.html pero con los intentos anteriores guardados en la URL)
+        function Retry() {
+            const attemptsString = JSON.stringify(attempts);
+            window.location.href = `index.html?word=${word}&def=${def}&attempts=${attemptsString}`;
         }
-        function GenerarPalabra() {
+
+        // Función para generar una nueva partida (vuelve al index.html de base)
+        function GenerateWord() {
             window.location.href = `index.html`;
         }
-        
     </script>
 </body>
 </html>

@@ -1,76 +1,87 @@
+/* Estilos para el cuerpo de la página */
 body {
-    font-family: 'Concert One';
-    font-weight: bold;
-    font-size: 1.2rem;
-    background-color: #244B2E;
-    color: #F5F5DC;
-    margin: 0;
-    padding: 0;
+    font-family: 'Concert One'; 
+    font-weight: bold; 
+    font-size: 1.2rem; 
+    background-color: #244B2E; 
+    color: #F5F5DC; 
+    margin: 0; /* Eliminar margen */
+    padding: 0; /* Eliminar padding */
 }
 
+/* Estilos para el contenedor principal */
 .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Divide el área principal en dos columnas */
-    gap: 20px;
-    padding: 20px;
+    display: grid; /* Utilizar un layout de cuadrícula */
+    grid-template-columns: 1fr 1fr; /* Dividir el área principal en dos columnas de igual tamaño */
+    gap: 20px; /* Espacio entre las filas y columnas de la cuadrícula */
+    padding: 20px; 
 }
 
+/* Estilos para el encabezado y el pie de página */
 header, footer {
-    grid-column: 1 / -1;
+    grid-column: 1 / -1; /* Hacer que ocupen todo el ancho de las columnas */
 }
 
+/* Estilos para la sección de estadísticas */
 .stats {
-    text-align: center;
-    margin-top: 100px;
+    text-align: center; 
+    margin-top: 100px; /* Margen superior */
 }
 
+/* Estilos para los párrafos dentro de la sección de estadísticas */
 .stats p {
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Margen inferior */
 }
 
+/* Estilos para el contenedor de la gráfica */
 .grafica-container {
-    display: block; 
-    margin: 20px auto; 
-    width: fit-content; 
+    display: block; /* Mostrar como bloque */
+    margin: 20px auto; /* Margen exterior, centrado horizontalmente */
+    width: fit-content; /* Ajustar el ancho al contenido */
 }
 
+/* Estilos para el canvas de la gráfica */
 .grafica-container canvas {
-    display: block; 
-    margin: auto;
+    display: block; /* Mostrar como bloque */
+    margin: auto; /* Centrado horizontalmente */
 }
 
+/* Estilos para la sección de botones */
 .buttons {
-    display: flex;
-    justify-content: center;
+    display: flex; /* Utilizar flexbox */
+    justify-content: center; /* Alinear los botones al centro */
 }
 
+/* Estilos para los botones */
 button {
-    padding: 10px 20px;
+    padding: 10px 20px; 
     margin: 0 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #5fa771;
-    color: #F5F5DC;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    border: none; /* Eliminar borde */
+    border-radius: 4px; /* Borde redondeado */
+    background-color: #5fa771; 
+    color: #F5F5DC; 
+    font-size: 16px; 
+    cursor: pointer; /* Cambiar cursor a la mano */
+    transition: background-color 0.3s; /* Transición de color de fondo */
 }
 
+/* Estilos hover para los botones */
 button:hover {
-    background-color: #0a8027;
+    background-color: #0a8027; 
 }
 
+/* Estilos para el pie de página */
 footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #154421;
-    color: #fff;
-    text-align: center;
+    position: fixed; /* Posición fija */
+    bottom: 0; /* Alinear al fondo */
+    width: 100%; /* Ancho completo */
+    background-color: #154421; 
+    color: #fff; 
+    text-align: center; /* Alinear texto al centro */
 }
 
+/* Estilos para las secciones de botones */
 .button-come-section, .button-new-section {
-    text-align: center;
-    margin-top: 20px;
+    text-align: center; 
+    margin-top: 20px; /* Margen superior */
 }
-

@@ -1,44 +1,47 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Palabras Aleatorias</title>
-    <link rel="stylesheet" href="styles_idx.css">
+    <title>GPA - 4</title>
+    <link rel="stylesheet" href="styles_idx.css"> 
 </head>
 <body>
     <header>
-    <img  src="images/logo.png" alt="" style="height: 100px; width: 200px; position: absolute; top: 10px; left: 0;"/>
-    <h1>GPA - 4 </h1>
+        <img src="images/logo.png" alt="" style="height: 100px; width: 200px; position: absolute; top: 10px; left: 0;"/> <!-- Logo con css -->
+        <h1>GPA - 4 </h1> <!-- Encabezado principal -->
     </header>
 
     <main>
-        <section class="buttons">
-            <button id="button1" onclick="generarPalabraAleatoria()">Generar Palabra </button>
+        <section class="buttons"> <!-- Sección para botones -->
+            <button id="button1" onclick="generateRandomWord()">Generar Palabra</button> <!-- Botón que llama a la función generateRandomWord() -->
         </section>
 
-        <section class="word">
-            <h2 id="palabra"></h2>
-            <p id="descripcion"></p>
+        <section class="word"> <!-- Sección para mostrar la palabra generada -->
+            <h2 id="word"></h2> <!-- Encabezado para la palabra -->
+            <p id="description"></p> <!-- Párrafo para la descripción -->
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 Iván Lumbreras Martín - Juan Antonio Diaz - Mario Moreno - Jaime Fernandez de Cañete</p>
+        <p>&copy; 2024 Iván Lumbreras Martín - Juan Antonio Diaz - Mario Moreno - Jaime Fernandez</p>
     </footer>
-    <script src="scripts.js"></script>
-    <script>    
-        // Obtener los parámetros de la URL
+
+    <script src="scripts.js"></script> <!-- Enlace a un archivo de JavaScript -->
+
+    <script>
+        // Get URL parameters
         const params = new URLSearchParams(window.location.search);
-        const palabra = params.get('word');
-        const descripcion = params.get('def');
+        const word = params.get('word'); // Obtener el parámetro 'word' de la URL
+        const description = params.get('def'); // Obtener el parámetro 'def' de la URL
 
-        // Mostrar los datos en la página
-        if (palabra !== null  && descripcion !== null ) {
-        document.getElementById('palabra').innerText = palabra;
-        document.getElementById('descripcion').innerText = descripcion;
+        // Display data on the page
+        if (word !== null && description !== null) { // Si se han pasado 'word' y 'def' como parámetros en la URL
+            document.getElementById('word').innerText = word; // Establecer el texto del elemento con el ID 'word'
+            document.getElementById('description').innerText = description; // Establecer el texto del elemento con el ID 'description'
 
-        cambiarColorGris(descripcion, palabra);
+            // Llamar a la función changeGrayColor() con los parámetros 'description' y 'word'
+            changeGrayColor(description, word);
         }
     </script>
 </body>

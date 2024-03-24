@@ -1,74 +1,83 @@
+/* Estilos generales para el body */
 body {
-    font-family: 'Concert One';
-    font-weight: bold;
-    font-size: 1.2rem;
-    background-color: #244B2E;
-    color: #F5F5DC;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    font-family: 'Concert One'; /* Tipo de fuente */
+    font-weight: bold; /* Para que sea en negrita */
+    font-size: 1.2rem; 
+    background-color: #244B2E; 
+    color: #F5F5DC; 
+    margin: 0; /* Elimina el margen  */
+    padding: 0; /* Elimina el padding  */
+    display: flex; 
+    flex-direction: column; /* Dirección de los elementos hijos */
+    justify-content: center; /* Alinea los elementos hijos verticalmente */
+    align-items: center; /* Alinea los elementos hijos horizontalmente (con esta propiedad y las de arriba conseguimos centrar todo) */
+    height: 100vh; /* Altura del cuerpo igual al 100% del viewport (viewport para que sea compatible con mas resoluciones sin que se desorganice todo) */
 }
 
+/* Estilos del contenedor principal */
 .container {
-    max-width: 600px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px; 
+    padding: 20px; 
+    background-color: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra del contenedor */
 }
 
+/* Estilos para el título */
 h1 {
-    text-align: center;
-    margin-bottom: 20px;
+    text-align: center; /* Centrar el texto */
+    margin-bottom: 20px; /* Espacio en la parte inferior */
 }
 
+/* Estilos para la palabra generada */
 .word {
-    text-align: center;
-    margin-bottom: 20px;
+    text-align: center; /* Centrar el texto */
+    margin-bottom: 20px; /* Espacio en la parte inferior */
 }
 
+/* Estilos para el título de la palabra */
 .word h2 {
-    font-size: 40px;
-    color: #b6995e;
-    margin-bottom: 10px;
+    font-size: 40px; 
+    color: #b6995e; 
+    margin-bottom: 10px; /* Espacio en la parte inferior */
 }
 
+/* Estilos para la descripción de la palabra */
 .word p {
-    font-size: 16px;
+    font-size: 16px; 
 }
 
+/* Estilos para la sección de botones */
 .buttons {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    display: flex; 
+    justify-content: center; /* Alinea los elementos hijos horizontalmente */
+    margin-bottom: 20px; 
 }
 
+/* Estilos para los botones */
 button {
-    padding: 10px 20px;
-    margin: 0 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #5fa771;
-    color: #F5F5DC;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    padding: 10px 20px; /* Relleno interno del botón */
+    margin: 0 10px; /* Margen exterior del botón */
+    border: none; /* Elimina el borde */
+    border-radius: 4px; /* Radio de borde para suavizar las esquinas */
+    background-color: #5fa771; 
+    color: #F5F5DC; 
+    font-size: 16px; 
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    transition: background-color 0.3s; /* Transición del color de fondo */
 }
 
+/* Estilos hover para los botones */
 button:hover {
-    background-color: #0a8027;
+    background-color: #0a8027; /* Cambia el color de fondo al pasar el ratón */
 }
 
-
+/* Estilos para el pie de página */
 footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #154421; /* Color de fondo del footer con opacidad */
-    color: #fff; /* Color del texto del footer */
+    position: fixed; /* Posición fija en la parte inferior */
+    bottom: 0; /* Alineación al fondo */
+    width: 100%; /* Ancho completo */
+    background-color: #154421; 
+    color: #fff; 
     text-align: center;
 }
