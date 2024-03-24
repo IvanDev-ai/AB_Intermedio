@@ -81,7 +81,7 @@ footer {
 }
 
 /* Estilos para las secciones de botones */
-.button-come-section, .button-new-section {
+.button-retry-section, .button-new-section {
     text-align: center; 
     margin-top: 20px; /* Margen superior */
 }
